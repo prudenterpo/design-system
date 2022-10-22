@@ -10,6 +10,8 @@ export const Table = ({
   renderHead,
   bodyData,
   renderBody,
+  filterData,
+  renderFilter
 }) => {
 
   const initDataShow = limit && bodyData ? bodyData.slice(0, Number(limit)) : bodyData;
@@ -22,12 +24,18 @@ export const Table = ({
       <TableContainer>
         <table>
           {
-            headData && renderHead ? (
+            headData && renderHead && filterData && renderFilter ? (
               <thead>
                 <tr>
                   {
                     headData.map((item, index) => renderHead(item, index))
                   }
+                </tr>
+                <tr>
+
+                      {
+                        filterData.map((item, index) => renderFilter(item, index))
+                      }
                 </tr>
               </thead>
             ) : null

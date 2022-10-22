@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { mockData, docTableHead } from './mockData';
+import { mockData, docTableHead, filterFieldData } from './mockData';
 
 //LIBS
 import { RiDeleteBin2Line } from "react-icons/ri";
@@ -24,25 +24,14 @@ import {
   TableCard,
 } from "./styles";
 
-export const TableDataFilter = ({ rowLimitPerPage, headData, bodyData }) => {
-  const [docList, setDocList] = useState([]);
-  const [isShowEditor, setIsShowEditor] = useState(false);
-  const [isShowTable, setIsShowTable] = useState(false);
-  const [template, setTemplate] = useState("");
-
-  const [errorModal, setErrorModal] = useState(false);
-
-  const [templateName, setTemplateName] = useState("");
-
-  const [isSaveEditionModalOpen, setIsSaveEditionModalOpen] = useState(false);
-
+export const TableDataFilter = ({ rowLimitPerPage, headData, bodyData, filterData }) => {
   const [rowIndexClicked, setRowIndexClicked] = useState(null);
   const [isEnableTableButton, setIsEnableTableButton] = useState(false);
-  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [isOpenDeleteConfirmationModal, setIsOpenDeleteConfirmationModal] =
-    useState(false);
+  const [selectFilter, setSelectFilter] = useState();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    alert(selectFilter)
+  }, [selectFilter]);
 
   async function handleRowClicked(docName, rowIndex) {
     if (rowIndexClicked !== rowIndex) {
@@ -73,9 +62,7 @@ export const TableDataFilter = ({ rowLimitPerPage, headData, bodyData }) => {
     console.log("Exportar");
     alert("Exportar!");
   };
-
-  const renderHead = (item, index) => <th key={index}>{item}</th>;
-
+  
   const toolbarOptions = [
     {
       text: "Ver Detalhes",
@@ -110,6 +97,24 @@ export const TableDataFilter = ({ rowLimitPerPage, headData, bodyData }) => {
       icon: <AiOutlineExport />,
     },
   ];
+  
+  const renderHead = (item, index) => <th key={index}>{item}</th>;
+
+  const renderFilter = (value, index) => (
+    <td>
+      <select
+        key={index}
+        onChange={(e) => setSelectFilter(e.target.value)}
+      >
+        <option>Todes..</option>
+      {
+        value.map((item) =>
+          <option>{item}</option>
+        )
+      }
+      </select>
+    </td> 
+  );
 
   const renderBody = (value, index) => (
     <tr
@@ -147,6 +152,8 @@ export const TableDataFilter = ({ rowLimitPerPage, headData, bodyData }) => {
         renderHead={(item, index) => renderHead(item, index)}
         bodyData={bodyData}
         renderBody={(value, index) => renderBody(value, index)}
+        filterData={filterData}
+        renderFilter={(value, index) => renderFilter(value, index)}
       />
     </TableCard>
   );
@@ -161,5 +168,6 @@ TableDataFilter.propTypes = {
 TableDataFilter.defaultProps = { 
   rowLimitPerPage: 10,
   headData: docTableHead,
-  bodyData: mockData
+  bodyData: mockData,
+  filterData: filterFieldData
 };

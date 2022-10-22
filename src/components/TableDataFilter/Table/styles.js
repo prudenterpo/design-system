@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from '../../../styles/colors';
 
 export const TableContainer = styled.div `
-  background-color: ${({ theme }) => theme.tableBG};
+  background-color: ${colors.white};
   border-radius: 10px;
   overflow: auto;
   table {
@@ -23,17 +23,24 @@ export const TableContainer = styled.div `
   cursor: pointer;
   }
   tbody > tr:hover {
-    background-color: ${colors.smock} !important;
+    background-color: ${colors.cleanGreen2
+    } !important;
     color: #fff;
   }
   .selected-row {
-    background-color: #C5F0B4;
+    background-color: ${colors.gray6};
     td {
       font-weight: 700;
     }
     :active {
       background-color: ${colors.gray5};
     }
+  }
+  select {
+    padding: 3px 0 2px;
+  }
+  option {
+    padding: 10px;
   }
 `;
 
