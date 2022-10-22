@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { mockData, docTableHead } from './mockData';
+import { mockData, docTableHead } from '../../mockData/mockDataTable';
  
 //LIBS
 import { RiDeleteBin2Line } from "react-icons/ri";
@@ -11,7 +11,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsFillHandThumbsUpFill } from "react-icons/bs";
 
 //COMPONENTS
-import { Table } from "./Table";
+import { Table } from "../Table";
 
 //STYLES
 import {

@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { mockData, docTableHead, filterFieldData } from './mockData';
+import { mockData, docTableHead, filterFieldData } from "../../mockData/mockDataTable";
 
 //LIBS
-import { RiDeleteBin2Line } from "react-icons/ri";
 import { HiOutlineDocumentSearch } from "react-icons/hi";
-import { AiOutlineExport } from "react-icons/ai";
+import { BsFillHandThumbsDownFill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillHandThumbsUpFill } from "react-icons/bs";
 
 //COMPONENTS
-import { Table } from "./Table";
+import { Table } from "../Table";
 
 //STYLES
-
+import colors from '../../styles/colors';
 import {
   BtnContainer,
   // PageContainer,
@@ -24,15 +23,21 @@ import {
   TableCard,
 } from "./styles";
 
-export const TableDataFilter = ({ rowLimitPerPage, headData, bodyData, filterData }) => {
+export const TableDataFilter = () => {
   const [rowIndexClicked, setRowIndexClicked] = useState(null);
   const [isEnableTableButton, setIsEnableTableButton] = useState(false);
   const [selectFilter, setSelectFilter] = useState();
+  const [headerTableData, setHeaderTableData] = useState(docTableHead);
+  const [bodyTableData, setBodyTableData] = useState(mockData);
 
+  
   useEffect(() => {
-    alert(selectFilter)
+    const filteredList = mockData.filter((item) => item.documentName.includes(selectFilter));
+    console.log(selectFilter);
+    setBodyTableData(filteredList);
+    console.log(filteredList);
   }, [selectFilter]);
-
+  
   async function handleRowClicked(docName, rowIndex) {
     if (rowIndexClicked !== rowIndex) {
       setRowIndexClicked(rowIndex);
@@ -62,11 +67,11 @@ export const TableDataFilter = ({ rowLimitPerPage, headData, bodyData, filterDat
     console.log("Exportar");
     alert("Exportar!");
   };
-  
+
   const toolbarOptions = [
     {
       text: "Ver Detalhes",
-      textColor: "orange",
+      textColor: colors.gray2, 
       click: function1,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
@@ -74,7 +79,7 @@ export const TableDataFilter = ({ rowLimitPerPage, headData, bodyData, filterDat
     },
     {
       text: "Editar",
-      textColor: "brown",
+      textColor: colors.gray2,
       click: function2,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
@@ -82,38 +87,34 @@ export const TableDataFilter = ({ rowLimitPerPage, headData, bodyData, filterDat
     },
     {
       text: "Aprovar",
-      textColor: "lightblue",
+      textColor: colors.cleanGreen,
       click: function3,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
       icon: <BsFillHandThumbsUpFill />,
     },
     {
-      text: "Exportar",
-      textColor: "red",
+      text: "Reprovar",
+      textColor: colors.alertRed,
       click: function4,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
-      icon: <AiOutlineExport />,
+      icon: <BsFillHandThumbsDownFill/>,
     },
   ];
+
   
   const renderHead = (item, index) => <th key={index}>{item}</th>;
-
+  
   const renderFilter = (value, index) => (
     <td>
-      <select
-        key={index}
-        onChange={(e) => setSelectFilter(e.target.value)}
-      >
-        <option>Todes..</option>
-      {
-        value.map((item) =>
+      <select key={index} onChange={(e) => setSelectFilter(e.target.value)}>
+        <option>Filtrar por..</option>
+        {value.map((item) => (
           <option>{item}</option>
-        )
-      }
+        ))}
       </select>
-    </td> 
+    </td>
   );
 
   const renderBody = (value, index) => (
@@ -147,12 +148,12 @@ export const TableDataFilter = ({ rowLimitPerPage, headData, bodyData, filterDat
         })}
       </HeaderBtn>
       <Table
-        limit={rowLimitPerPage}
-        headData={headData}
+        limit="10"
+        headData={headerTableData}
         renderHead={(item, index) => renderHead(item, index)}
-        bodyData={bodyData}
+        bodyData={bodyTableData}
         renderBody={(value, index) => renderBody(value, index)}
-        filterData={filterData}
+        filterData={filterFieldData}
         renderFilter={(value, index) => renderFilter(value, index)}
       />
     </TableCard>
@@ -165,9 +166,9 @@ TableDataFilter.propTypes = {
   bodyData: PropTypes.array,
 };
 
-TableDataFilter.defaultProps = { 
-  rowLimitPerPage: 10,
-  headData: docTableHead,
-  bodyData: mockData,
-  filterData: filterFieldData
-};
+// TableDataFilter.defaultProps = {
+//   rowLimitPerPage: 10,
+//   headData: docTableHead,
+//   bodyData: mockData,
+//   filterData: filterFieldData,
+// };

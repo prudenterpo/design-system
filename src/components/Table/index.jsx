@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from "prop-types";
 
 import Pagination from '../Pagination';
 
@@ -11,6 +10,8 @@ export const Table = ({
   renderHead,
   bodyData,
   renderBody,
+  filterData,
+  renderFilter
 }) => {
 
   const initDataShow = limit && bodyData ? bodyData.slice(0, Number(limit)) : bodyData;
@@ -18,27 +19,23 @@ export const Table = ({
   const [currentPage, setCurrentPage] = useState(0);
   const [offset, setOffset] = useState(0);
 
-  // let pages = 1;
-  // let range = [];
-
-  // if (limit !== undefined) {
-  //   let page = Math.floor(bodyData.length / Number(limit));
-  //   pages = bodyData.length % Number(limit) === 0 ? page : page + 1;
-  //   range = [...Array(pages).keys()];
-  // }
-
-  
   return (
     <div>
       <TableContainer>
         <table>
           {
-            headData && renderHead ? (
+            headData && renderHead && filterData && renderFilter ? (
               <thead>
                 <tr>
                   {
                     headData.map((item, index) => renderHead(item, index))
                   }
+                </tr>
+                <tr>
+
+                      {
+                        filterData.map((item, index) => renderFilter(item, index))
+                      }
                 </tr>
               </thead>
             ) : null

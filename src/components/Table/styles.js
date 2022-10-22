@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import colors from '../../../styles/colors';
+import styled from "styled-components";
+import colors from "../../styles/colors";
 
-export const TableContainer = styled.div `
+export const TableContainer = styled.div`
   background-color: ${colors.white};
   border-radius: 10px;
   overflow: auto;
@@ -12,19 +12,24 @@ export const TableContainer = styled.div `
   }
   thead {
     background-color: ${colors.gray6};
+    tr:nth-child(2) {
+      background-color: ${colors.white};
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    }
   }
-  th, td {
-  min-width: 150px;
-  text-align: start;
-  font-size: 0.8rem;
-  text-transform: capitalize;
-  padding: 10px 8px;
-  color: ${colors.gray2};
-  cursor: pointer;
+  th,
+  td {
+    min-width: 150px;
+    text-align: start;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    padding: 10px 8px;
+    color: ${colors.gray2};
+    cursor: pointer;
   }
   tbody > tr:hover {
-    background-color: ${colors.cleanGreen2
-    } !important;
+    background-color: ${colors.cleanGreen2} !important;
     color: #fff;
   }
   .selected-row {
@@ -35,12 +40,6 @@ export const TableContainer = styled.div `
     :active {
       background-color: ${colors.gray5};
     }
-  }
-  select {
-    padding: 3px 0 2px;
-  }
-  option {
-    padding: 10px;
   }
 `;
 
@@ -79,4 +78,3 @@ export const TableContainer = styled.div `
 //     background-color: #f4f4f4;
 //   }
 // `;
-

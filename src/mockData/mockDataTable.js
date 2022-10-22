@@ -5,30 +5,11 @@ export const docTableHead = [
   "Criado por:",
 ];
 
-// export const filterFieldData = [
-//   {
-//     documentName: "Rodrigo",
-//     items: [ 'item 1', 'item 2', 'item 3', 'item 4']
-//   },
-//   {
-//     documentType: "Cpf",
-//     items: [ 'item 1', 'item 2', 'item 3', 'item 4']
-//   },
-//   {
-//     documentType: "Cpf",
-//     items: [ 'item 1', 'item 2', 'item 3', 'item 4']
-//   },
-//   {
-//     documentType: "Cpf",
-//     items: [ 'item 1', 'item 2', 'item 3', 'item 4']
-//   }
-// ];
-
 export const filterFieldData = [ 
-  [ 'Todos..', 'item 2', 'item 3', 'item 4'],
-  [ 'Todos..', 'item 2', 'item 3', 'item 4'],
-  [ 'Todos..', 'item 2', 'item 3', 'item 4'],
-  [ 'Todos..', 'item 2', 'item 3', 'item 4'],
+  [ 'Rodrigo', 'Luiz', 'He', 'item 4'],
+  [ 'Lu', 'item 2', 'item 3', 'item 4'],
+  [ 'Maria', 'item 2', 'item 3', 'item 4'],
+  [ 'Heitor', 'item 2', 'item 3', 'item 4'],
 ];
 
 export const mockData = [
@@ -39,49 +20,49 @@ export const mockData = [
     createdBy: "João",
   },
   {
-    documentName: "Rodrigo",
+    documentName: "Diego",
+    documentType: "Carteira de Trabalho",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Lucia",
     documentType: "Cpf",
     timestamp: "13/12/2022",
     createdBy: "João",
   },
   {
-    documentName: "Rodrigo",
+    documentName: "Lucas",
     documentType: "Cpf",
     timestamp: "13/12/2022",
     createdBy: "João",
   },
   {
-    documentName: "Rodrigo",
+    documentName: "Natalia",
     documentType: "Cpf",
     timestamp: "13/12/2022",
     createdBy: "João",
   },
   {
-    documentName: "Rodrigo",
+    documentName: "Daniela",
     documentType: "Cpf",
     timestamp: "13/12/2022",
     createdBy: "João",
   },
   {
-    documentName: "Rodrigo",
+    documentName: "Heitor",
     documentType: "Cpf",
     timestamp: "13/12/2022",
     createdBy: "João",
   },
   {
-    documentName: "Rodrigo",
+    documentName: "Luiz",
     documentType: "Cpf",
     timestamp: "13/12/2022",
     createdBy: "João",
   },
   {
-    documentName: "Rodrigo",
-    documentType: "Cpf",
-    timestamp: "13/12/2022",
-    createdBy: "João",
-  },
-  {
-    documentName: "Rodrigo",
+    documentName: "Elizabete",
     documentType: "Cpf",
     timestamp: "13/12/2022",
     createdBy: "João",
