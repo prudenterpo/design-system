@@ -44,7 +44,7 @@ export const TableDataFilter = () => {
     }
   };
   
-  async function handleRowClicked(docName, rowIndex) {
+  async function handleRowClicked(rowIndex) {
     if (rowIndexClicked !== rowIndex) {
       setRowIndexClicked(rowIndex);
     } else {
@@ -130,9 +130,10 @@ export const TableDataFilter = () => {
   const renderBody = (value, index) => (
     <tr
       key={index}
-      onClick={() => handleRowClicked(value.documentName, index)}
+      onClick={() => handleRowClicked(index)}
       className={rowIndexClicked === index ? "selected-row" : null}
     >
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
       <td>{value.documentName}</td>
       <td>{value.documentType}</td>
       <td>{value.timestamp}</td>
@@ -171,10 +172,13 @@ export const TableDataFilter = () => {
           {headerTableData && renderHead && filterFieldData && renderFilter ? (
             <thead>
               <tr>
-                {headerTableData.map((item, index) => renderHead(item, index))
+                <input type="checkbox" id="" name="" value="" />
+                {
+                  headerTableData.map((item, index) => renderHead(item, index))
                 }
               </tr>
               <tr>
+                <button>limpar</button>
                 {
                   filterFieldData.map((item, index) => renderFilter(item, index))
                 }
