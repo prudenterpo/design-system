@@ -32,10 +32,9 @@ export const Table = ({
                   }
                 </tr>
                 <tr>
-
-                      {
-                        filterData.map((item, index) => renderFilter(item, index))
-                      }
+                  {
+                    filterData.map((item, index) => renderFilter(item, index))
+                  }
                 </tr>
               </thead>
             ) : null

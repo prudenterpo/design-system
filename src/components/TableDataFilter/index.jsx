@@ -21,6 +21,7 @@ import {
   Title,
   HeaderEditor,
   TableCard,
+  TableContainer
 } from "./styles";
 
 export const TableDataFilter = () => {
@@ -32,11 +33,16 @@ export const TableDataFilter = () => {
 
   
   useEffect(() => {
-    const filteredList = mockData.filter((item) => item.documentName.includes(selectFilter));
-    console.log(selectFilter);
-    setBodyTableData(filteredList);
-    console.log(filteredList);
+    searchfilterTable();
   }, [selectFilter]);
+  
+  function searchfilterTable() {
+    if(selectFilter) {
+      const filteredList = mockData
+      .filter((item) => item.documentName.includes(selectFilter));
+      setBodyTableData(filteredList);
+    }
+  };
   
   async function handleRowClicked(docName, rowIndex) {
     if (rowIndexClicked !== rowIndex) {
@@ -103,17 +109,21 @@ export const TableDataFilter = () => {
     },
   ];
 
+  const selectFilterData = (e) => {
+    setSelectFilter(e.target.value);
+  };
   
   const renderHead = (item, index) => <th key={index}>{item}</th>;
   
   const renderFilter = (value, index) => (
     <td>
-      <select key={index} onChange={(e) => setSelectFilter(e.target.value)}>
+      <select key={index} onChange={selectFilterData}>
         <option>Filtrar por..</option>
         {value.map((item) => (
           <option>{item}</option>
         ))}
       </select>
+      <button>X</button>
     </td>
   );
 
@@ -147,7 +157,7 @@ export const TableDataFilter = () => {
           );
         })}
       </HeaderBtn>
-      <Table
+      {/* <Table
         limit="10"
         headData={headerTableData}
         renderHead={(item, index) => renderHead(item, index)}
@@ -155,7 +165,32 @@ export const TableDataFilter = () => {
         renderBody={(value, index) => renderBody(value, index)}
         filterData={filterFieldData}
         renderFilter={(value, index) => renderFilter(value, index)}
-      />
+      /> */}
+      <TableContainer>
+        <table>
+          {headerTableData && renderHead && filterFieldData && renderFilter ? (
+            <thead>
+              <tr>
+                {headerTableData.map((item, index) => renderHead(item, index))
+                }
+              </tr>
+              <tr>
+                {
+                  filterFieldData.map((item, index) => renderFilter(item, index))
+                }
+              </tr>
+            </thead>
+          ) : null}
+
+          {bodyTableData && renderBody ? (
+            <tbody>
+              {
+                bodyTableData.map((item, index) => renderBody(item, index))
+              }
+            </tbody>
+          ) : null}
+        </table>
+      </TableContainer>
     </TableCard>
   );
 };
