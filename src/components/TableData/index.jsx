@@ -22,7 +22,223 @@ import {
   TableCard,
 } from "./styles";
 
-export const TableData = () => {
+const docTableHead = [
+  "Nome do documento",
+  "Tipo de documento",
+  "Última atualização",
+  "Criado por:",
+];
+
+const mockData = [
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+  {
+    documentName: "Rodrigo",
+    documentType: "Cpf",
+    timestamp: "13/12/2022",
+    createdBy: "João",
+  },
+];
+
+
+
+export const TableData = ({ rowLimitPerPage, headData, bodyData }) => {
   const [docList, setDocList] = useState([]);
   const [isShowEditor, setIsShowEditor] = useState(false);
   const [isShowTable, setIsShowTable] = useState(false);
@@ -109,220 +325,6 @@ export const TableData = () => {
     },
   ];
 
-  const mockData = [
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-    {
-      documentName: "Rodrigo",
-      documentType: "Cpf",
-      timestamp: "13/12/2022",
-      createdBy: "João",
-    },
-  ];
-
-  const docTableHead = [
-    "Nome do documento",
-    "Tipo de documento",
-    "Última atualização",
-    "Criado por:",
-  ];
-
   const renderBody = (value, index) => (
     <tr
       key={index}
@@ -354,16 +356,24 @@ export const TableData = () => {
         })}
       </HeaderBtn>
       <Table
-        limit="10"
-        headData={docTableHead}
+        limit={rowLimitPerPage}
+        headData={headData}
         renderHead={(item, index) => renderHead(item, index)}
-        bodyData={mockData}
+        bodyData={bodyData}
         renderBody={(value, index) => renderBody(value, index)}
       />
     </TableCard>
   );
 };
 
-// TableData.propTypes = {
+TableData.propTypes = {
+  rowLimitPerPage: PropTypes.number,
+  headData: PropTypes.array,
+  bodyData: PropTypes.array,
+};
 
-// };
+TableData.defaultProps = { 
+  rowLimitPerPage: 10,
+  headData: docTableHead,
+  bodyData: mockData
+};
