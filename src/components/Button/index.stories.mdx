@@ -1,0 +1,69 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { Button } from './index';
+
+import colors from '../../styles/colors'
+
+<Meta 
+  title="Components/Button"  
+  component={Button} 
+  argTypes={{
+    size: { 
+      options: ['small', 'regular', 'large'],
+      control: { type: 'radio' }
+    }
+  }}
+/>
+
+# This is the Primary Button
+This is our button component!
+
+<Canvas>
+  <Story
+    name="Primary"
+    args={{
+      ...Button.defaultProps,
+      text: "Primary Button",
+    }}
+  >
+    {(args) => <Button {...args} />}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Button} />
+
+# This is the Secondary Button
+This is our button component!
+
+<Canvas>
+  <Story
+    name="Secondary"
+    args={{
+      ...Button.defaultProps,
+      text: "SecondaryButton",
+      bgColor: colors.jade,
+      border: `1px solid ${colors.jade}`,
+      hoverBgColor: colors.cleanGreen,
+      hoverBorder: `1px solid ${colors.cleanGreen}`
+    }}
+  >
+    {(args) => <Button {...args} />}
+  </Story>
+</Canvas>
+
+# This is the Outlined Button
+This is our button component!
+
+<Canvas>
+  <Story
+    name="Outlined"
+    args={{
+      ...Button.defaultProps,
+      text: "Outlined Button",
+      bgColor: "transparent",
+      color: colors.pureGreen,
+      hoverColor: colors.white,
+    }}
+  >
+    {(args) => <Button {...args} />}
+  </Story>
+</Canvas>

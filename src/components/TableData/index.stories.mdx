@@ -1,0 +1,23 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { TableData } from './index';
+
+<Meta title="Components/TableData" component={TableData} />
+
+#This is the Datatable!
+
+# This is the Primary TableData
+This is our button component!
+
+<Canvas>
+  <Story
+    name="Primary"
+    args={{
+      ...TableData.defaultProps,
+      text: "Primary TableData",
+    }}
+  >
+    {(args) => <TableData {...args} />}
+  </Story>
+</Canvas>
+
+<ArgsTable of={TableData} />
