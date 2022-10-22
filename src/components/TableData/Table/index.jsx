@@ -18,14 +18,14 @@ export const Table = ({
   const [currentPage, setCurrentPage] = useState(0);
   const [offset, setOffset] = useState(0);
 
-  let pages = 1;
-  let range = [];
+  // let pages = 1;
+  // let range = [];
 
-  if (limit !== undefined) {
-    let page = Math.floor(bodyData.length / Number(limit));
-    pages = bodyData.length % Number(limit) === 0 ? page : page + 1;
-    range = [...Array(pages).keys()];
-  }
+  // if (limit !== undefined) {
+  //   let page = Math.floor(bodyData.length / Number(limit));
+  //   pages = bodyData.length % Number(limit) === 0 ? page : page + 1;
+  //   range = [...Array(pages).keys()];
+  // }
 
   
   return (
@@ -54,20 +54,16 @@ export const Table = ({
           }
         </table>
       </TableContainer>
-      {
-        pages > 1 ? 
-          <Pagination 
-            limitOfPage={limit}
-            totalItems={bodyData.length}
-            offset={offset}
-            setOffset={setOffset}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            setDataShow={setDataShow}
-            bodyData={bodyData}
-          />
-       : null
-      }
+        <Pagination 
+          limitOfPage={limit}
+          totalItems={bodyData.length}
+          offset={offset}
+          setOffset={setOffset}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          setDataShow={setDataShow}
+          bodyData={bodyData}
+        />
     </div>
   )
 }
