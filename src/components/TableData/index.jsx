@@ -354,7 +354,7 @@ export const TableData = () => {
         })}
       </HeaderBtn>
       <Table
-        limit="15"
+        limit="10"
         headData={docTableHead}
         renderHead={(item, index) => renderHead(item, index)}
         bodyData={mockData}
