@@ -1,0 +1,22 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { TableDataFilter } from './index';
+
+<Meta title="Components/TableData" component={TableDataFilter} />
+
+#This is the Datatable with Search filter!
+
+# This is the Primary TableDataFilter
+This is our button component!
+
+<Canvas>
+  <Story
+    name="TableData - With Filter"
+    args={{
+      ...TableDataFilter.defaultProps
+    }}
+  >
+    {(args) => <TableDataFilter {...args} />}
+  </Story>
+</Canvas>
+
+<ArgsTable of={TableDataFilter} />
