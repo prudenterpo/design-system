@@ -1,3 +1,6 @@
+import ColumnFilter from '../components/ColumnFilter';
+import SelectFilter from '../components/SelectFilter';
+
 export const docTableHead = [
   "Tipo de consulta",
   "CPF ou CNPJ",
@@ -12,16 +15,52 @@ export const docTableHead = [
 ];
 
 export const COLUMNS = [
-  { Header: "Tipo de consulta", accessor: "portifolio_or_presignup"},
-  { Header: "CPF ou CNPJ", accessor: "cpf_or_cnpj"},
-  { Header: "Tipo de produtor", accessor: "type_of_person"},
-  { Header: "Agroindústria", accessor: "agroindustry"},
-  { Header: "Produto", accessor: "product"},
-  { Header: "Garantia", accessor: "guarantee"},
-  { Header: "Cultura", accessor: "production"},
-  { Header: "Finalidade", accessor: "destination"},
-  { Header: "Modalidade", accessor: "modality"},
-  { Header: "Id_controle_taxa", accessor: "id_tax"}
+  { 
+    Header: "Tipo de consulta", 
+    accessor: "portifolio_or_presignup",
+    
+  },
+  { 
+    Header: "CPF ou CNPJ", 
+    accessor: "cpf_or_cnpj",
+    textField: true 
+  },
+  { 
+    Header: "Tipo de produtor", 
+    accessor: "type_of_person",
+    
+  },
+  { 
+    Header: "Agroindústria", 
+    accessor: "agroindustry",
+    
+  },
+  { 
+    Header: "Produto", 
+    accessor: "product",
+    
+  },
+  { 
+    Header: "Garantia", 
+    accessor: "guarantee",
+    
+  },
+  { 
+    Header: "Cultura", 
+    accessor: "production",
+      },
+  { 
+    Header: "Finalidade", 
+    accessor: "destination",
+      },
+  { 
+    Header: "Modalidade", 
+    accessor: "modality",
+      },
+  { 
+    Header: "Id_controle_taxa", 
+    accessor: "id_tax",
+      }
 ];
 
 export const filterFieldData = [ 

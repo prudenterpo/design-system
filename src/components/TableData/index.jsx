@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
-import { useTable, useSortBy } from 'react-table';
+import { useTable, useSortBy, useGlobalFilter, useFilters } from 'react-table';
 
 import { mockData, docTableHead, filterFieldData, COLUMNS } from "../../mockData/mockDataTable";
 
@@ -14,7 +14,9 @@ import { FaSortAlphaDown } from "react-icons/fa";
 
 //COMPONENTS
 import { Pagination } from '../Pagination';
-
+import InputFilter from "../InputFilter";
+import ColumnFilter from "../ColumnFilter";
+import SelectFilter from "../SelectFilter";
 //STYLES
 import colors from '../../styles/colors';
 import {
@@ -42,14 +44,28 @@ export const TableData = () => {
 
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => mockData, []);
+  // const defaultColumn = useMemo(() => {
+  //     return {
+  //         Filter: <SelectFilter  />
+  //     }
+  // }, [])
 
   const { 
     getTableProps, 
     getTableBodyProps, 
     headerGroups, 
     rows, 
-    prepareRow, 
-  } = useTable({ columns, data }, useSortBy)
+    prepareRow,
+    state,
+    setGlobalFilter, 
+  } = useTable(
+    { columns, data },
+    useFilters, 
+    useGlobalFilter, 
+    useSortBy
+  )
+
+  const { globalFilter } = state;
 
   useEffect(() => {
     searchfilterTable();
@@ -64,6 +80,7 @@ export const TableData = () => {
   };
   
   async function handleRowClicked(rowIndex) {
+    console.log(rowIndex);
     if (rowIndexClicked !== rowIndex) {
       setRowIndexClicked(rowIndex);
     } else {
@@ -172,6 +189,26 @@ export const TableData = () => {
     </tr>
   );
 
+ 
+    // const setList = new Set();
+    // rows.map((item, index) => {
+    //   setList
+    //     .add(item.values.agroindustry)
+    //     .add(item.values.modality)
+    //     .add(item.values.cpf_or_cnpj)
+  
+    // })
+    // console.log(setList)
+  
+
+ 
+
+  console.log("headerGroups => ", headerGroups)
+  console.log("globalFilter =>", globalFilter)
+  console.log("columns => ", columns)
+  console.log("state => ", state)
+  console.log("rows => ", rows)
+
   return (
     <TableCard>
       <HeaderBtn>
@@ -199,26 +236,36 @@ export const TableData = () => {
         renderFilter={(value, index) => renderFilter(value, index)}
       /> */}
       <TableContainer>
+        <InputFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <table {...getTableProps()}>
           <thead>
               {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map(column => (
+                  {headerGroup.headers.map((column, index) => (
                     <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                       {column.render('Header')}
                       <span>
                         {column.isSorted ? (column.isSortedDesc ? <FaSortAlphaDown /> : <FaSortAlphaUpAlt />) : ''}
                       </span>
+                      <div>
+                        {column.canFilter ? column.render(
+                          column.textField == true ? <ColumnFilter /> : <SelectFilter indexValue={index} list={rows}/>) 
+                          : null}
+                      </div>
                     </th>
                   ))}
                 </tr>
               ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
+            {rows.map((row, index) => {
               prepareRow(row)
               return (
-                <tr {...row.getRowProps()}>
+                <tr 
+                  onClick={() => handleRowClicked(index)}  
+                  className={rowIndexClicked === index ? "selected-row" : null} 
+                  {...row.getRowProps()}
+                >
                   {row.cells.map((cell) => {
                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                   })}
