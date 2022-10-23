@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
-import { mockData, docTableHead, filterFieldData } from "../../mockData/mockDataTable";
+import { useTable } from 'react-table';
 
-//LIBS
-import { HiOutlineDocumentSearch } from "react-icons/hi";
+import { mockData, docTableHead, filterFieldData, COLUMNS } from "../../mockData/mockDataTable";
+
+import  { HiOutlineDocumentSearch } from "react-icons/hi";
 import { BsFillHandThumbsDownFill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillHandThumbsUpFill } from "react-icons/bs";
@@ -37,7 +38,17 @@ export const TableData = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [offset, setOffset] = useState(0);
 
-  
+  const columns = useMemo(() => COLUMNS, []);
+  const data = useMemo(() => mockData, []);
+
+  const { 
+    getTableProps, 
+    getTableBodyProps, 
+    headerGroups, 
+    rows, 
+    prepareRow, 
+  } = useTable({ columns, data });
+
   useEffect(() => {
     searchfilterTable();
   }, [selectFilter]);
@@ -186,7 +197,30 @@ export const TableData = () => {
         renderFilter={(value, index) => renderFilter(value, index)}
       /> */}
       <TableContainer>
-        <table>
+        <table {...getTableProps()}>
+          <thead>
+              {headerGroups.map(headerGroup => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map(column => (
+                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                  ))}
+                </tr>
+              ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map(row => {
+              prepareRow(row)
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  })}
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+        {/* <table>
           {headerTableData && renderHead && filterFieldData && renderFilter ? (
             <thead>
               <tr>
@@ -211,9 +245,9 @@ export const TableData = () => {
               }
             </tbody>
           ) : null}
-        </table>
+        </table> */}
       </TableContainer>
-        <Pagination 
+        {/* <Pagination 
           limitOfPage={limit}
           totalItems={bodyTableData.length}
           offset={offset}
@@ -222,7 +256,7 @@ export const TableData = () => {
           setCurrentPage={setCurrentPage}
           setDataShow={setDataShow}
           bodyData={bodyTableData}
-        />
+        /> */}
     </TableCard>
   );
 };

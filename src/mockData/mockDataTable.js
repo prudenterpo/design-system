@@ -11,6 +11,19 @@ export const docTableHead = [
   "Id_controle_taxa"
 ];
 
+export const COLUMNS = [
+  { Header: "Tipo de consulta", accessor: "portifolio_or_presignup"},
+  { Header: "CPF ou CNPJ", accessor: "cpf_or_cnpj"},
+  { Header: "Tipo de produtor", accessor: "type_of_person"},
+  { Header: "Agroindústria", accessor: "agroindustry"},
+  { Header: "Produto", accessor: "product"},
+  { Header: "Garantia", accessor: "guarantee"},
+  { Header: "Cultura", accessor: "production"},
+  { Header: "Finalidade", accessor: "destination"},
+  { Header: "Modalidade", accessor: "modality"},
+  { Header: "Id_controle_taxa", accessor: "id_tax"}
+];
+
 export const filterFieldData = [ 
   ['Presignup', 'Portifólio'],
   ['textInput'],
@@ -27,11 +40,11 @@ export const filterFieldData = [
 export const mockData = [
   {
     portifolio_or_presignup: "Presignup",
-    cpfOrCnpj: "23434565789",
-    typeOfPerson: "F",
+    cpf_or_cnpj: "23434565789",
+    type_of_person: "F",
     agroindustry: "Coopeavi",
     product: "Custeio",
-    guarantees: "Tipo de garantia 1",
+    guarantee: "Tipo de garantia 1",
     production: "Frango de corte",
     destination: "Finalidade 1",
     modality: "Modalidade 1",
@@ -39,8 +52,8 @@ export const mockData = [
   },
   {
     portifolio_or_presignup: "Portifólio",
-    cpfOrCnpj: "23434565789",
-    typeOfPerson: "F",
+    cpf_or_cnpj: "23434565789",
+    type_of_person: "F",
     agroindustry: "Coopeavi",
     product: "Custeio",
     guarantees: "Tipo de garantia 1",

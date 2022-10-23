@@ -102,6 +102,7 @@ export const TableContainer = styled.div`
     color: ${colors.gray2};
     cursor: pointer;
   }
+  tr:nth-child(even){background-color: #f2f2f2;}
   tbody > tr:hover {
     background-color: ${colors.cleanGreen2} !important;
     color: #fff;
