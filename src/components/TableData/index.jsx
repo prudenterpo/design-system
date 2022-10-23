@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
-import { useTable, useSortBy, useGlobalFilter, useFilters } from 'react-table';
+import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination } from 'react-table';
 
 import { mockData, docTableHead, filterFieldData, COLUMNS } from "../../mockData/mockDataTable";
 
@@ -54,18 +54,28 @@ export const TableData = () => {
     getTableProps, 
     getTableBodyProps, 
     headerGroups, 
-    rows, 
+    rows,
+    page,
+    nextPage,
+    previousPage, 
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    gotoPage,
+    pageCount,
+    setPageSize,
     prepareRow,
     state,
     setGlobalFilter, 
   } = useTable(
-    { columns, data },
+    { columns, data, initialState: { pageIndex: 0 }},
     useFilters, 
     useGlobalFilter, 
-    useSortBy
+    useSortBy,
+    usePagination
   )
 
-  const { globalFilter } = state;
+  const { globalFilter, pageIndex, pageSize } = state;
 
   useEffect(() => {
     searchfilterTable();
@@ -145,63 +155,49 @@ export const TableData = () => {
     },
   ];
 
-  const selectFilterData = (e) => {
-    setSelectFilter(e.target.value);
-  };
+  // const selectFilterData = (e) => {
+  //   setSelectFilter(e.target.value);
+  // };
   
-  const renderHead = (item, index) => <th key={index}>{item}</th>;
+  // const renderHead = (item, index) => <th key={index}>{item}</th>;
   
-  const renderFilter = (value, index) => (
-    <td>
-      {value[0] !== "textInput" ?
-        <select key={index} onChange={selectFilterData}>
-          <option>Filtrar por..</option>
-          {value.map((item) => (
-            <option>{item}</option>
-          ))}
-        </select>
-      : 
-        <input type="text" placeholder="Filtrar por.." onChange={selectFilterData} />
-      }
-      <button>X</button>
-    </td>
-  );
+  // const renderFilter = (value, index) => (
+  //   <td>
+  //     {value[0] !== "textInput" ?
+  //       <select key={index} onChange={selectFilterData}>
+  //         <option>Filtrar por..</option>
+  //         {value.map((item) => (
+  //           <option>{item}</option>
+  //         ))}
+  //       </select>
+  //     : 
+  //       <input type="text" placeholder="Filtrar por.." onChange={selectFilterData} />
+  //     }
+  //     <button>X</button>
+  //   </td>
+  // );
 
-  const renderBody = (value, index) => (
-    <tr
-      key={index}
-      onClick={() => handleRowClicked(index)}
-      className={rowIndexClicked === index ? "selected-row" : null}
-    >
-      <div>
-        <input type="checkbox" id="" value="" />
-      </div>
-      <td>{value.portifolio_or_presignup}</td>
-      <td>{value.cpfOrCnpj}</td>
-      <td>{value.typeOfPerson}</td>
-      <td>{value.agroindustry}</td>
-      <td>{value.product}</td>
-      <td>{value.guarantees}</td>
-      <td>{value.production}</td>
-      <td>{value.destination}</td>
-      <td>{value.modality}</td>
-      <td>{value.id_tax}</td>
-    </tr>
-  );
-
- 
-    // const setList = new Set();
-    // rows.map((item, index) => {
-    //   setList
-    //     .add(item.values.agroindustry)
-    //     .add(item.values.modality)
-    //     .add(item.values.cpf_or_cnpj)
-  
-    // })
-    // console.log(setList)
-  
-
- 
+  // const renderBody = (value, index) => (
+  //   <tr
+  //     key={index}
+  //     onClick={() => handleRowClicked(index)}
+  //     className={rowIndexClicked === index ? "selected-row" : null}
+  //   >
+  //     <div>
+  //       <input type="checkbox" id="" value="" />
+  //     </div>
+  //     <td>{value.portifolio_or_presignup}</td>
+  //     <td>{value.cpfOrCnpj}</td>
+  //     <td>{value.typeOfPerson}</td>
+  //     <td>{value.agroindustry}</td>
+  //     <td>{value.product}</td>
+  //     <td>{value.guarantees}</td>
+  //     <td>{value.production}</td>
+  //     <td>{value.destination}</td>
+  //     <td>{value.modality}</td>
+  //     <td>{value.id_tax}</td>
+  //   </tr>
+  // );
 
   console.log("headerGroups => ", headerGroups)
   console.log("globalFilter =>", globalFilter)
@@ -258,7 +254,7 @@ export const TableData = () => {
               ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row, index) => {
+            {page.map((row, index) => {
               prepareRow(row)
               return (
                 <tr 
@@ -274,6 +270,35 @@ export const TableData = () => {
             })}
           </tbody>
         </table>
+        <div>
+          <span> Página{' '}<strong>{pageIndex + 1} de {pageOptions.length}</strong></span>
+          
+          <span>
+            Ir para página: {' '}          
+            <input 
+              type="number" defaultValue={pageIndex + 1}
+              onChange={e => {
+                const pageNumber = e.target.value ? Number(e.target.value) - 1 : 0
+                gotoPage(pageNumber)
+              }}
+            />
+          </span>
+          <div>
+            <span>Linhas por página: {' '}</span>
+            <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+              {[5, 10, 15, 20, 25, 30].map((pageSize) => (
+                  <option>
+                    {pageSize}
+                  </option>
+              ))}
+            </select>
+          </div>
+          
+          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button>
+          <button onClick={() => previousPage()} disabled={!canPreviousPage}>Anterior</button>
+          <button onClick={() => nextPage()} disabled={!canNextPage}>Próxima</button>
+          <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</button>
+        </div>
         {/* <table>
           {headerTableData && renderHead && filterFieldData && renderFilter ? (
             <thead>
