@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { mockData, docTableHead } from '../../mockData/mockDataTable';
- 
+import { mockData, docTableHead, filterFieldData } from "../../mockData/mockDataTable";
+
 //LIBS
-import { RiDeleteBin2Line } from "react-icons/ri";
 import { HiOutlineDocumentSearch } from "react-icons/hi";
-import { AiOutlineExport } from "react-icons/ai";
+import { BsFillHandThumbsDownFill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillHandThumbsUpFill } from "react-icons/bs";
 
 //COMPONENTS
-import { Table } from "../Table";
+import { Pagination } from '../Pagination';
 
 //STYLES
+import colors from '../../styles/colors';
 import {
   BtnContainer,
   // PageContainer,
@@ -21,32 +21,36 @@ import {
   Title,
   HeaderEditor,
   TableCard,
+  TableContainer
 } from "./styles";
 
-
-
-
-export const TableData = ({ rowLimitPerPage, headData, bodyData }) => {
-  const [docList, setDocList] = useState([]);
-  const [isShowEditor, setIsShowEditor] = useState(false);
-  const [isShowTable, setIsShowTable] = useState(false);
-  const [template, setTemplate] = useState("");
-
-  const [errorModal, setErrorModal] = useState(false);
-
-  const [templateName, setTemplateName] = useState("");
-
-  const [isSaveEditionModalOpen, setIsSaveEditionModalOpen] = useState(false);
-
+export const TableData = () => {
   const [rowIndexClicked, setRowIndexClicked] = useState(null);
   const [isEnableTableButton, setIsEnableTableButton] = useState(false);
-  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [isOpenDeleteConfirmationModal, setIsOpenDeleteConfirmationModal] =
-    useState(false);
+  const [selectFilter, setSelectFilter] = useState();
+  const [headerTableData, setHeaderTableData] = useState(docTableHead);
+  const [bodyTableData, setBodyTableData] = useState(mockData);
 
-  useEffect(() => {}, []);
+  const limit = 10;
+  const initDataShow = limit && bodyTableData ? bodyTableData.slice(0, Number(limit)) : bodyTableData;
+  const [dataShow, setDataShow] = useState(initDataShow);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [offset, setOffset] = useState(0);
 
-  async function handleRowClicked(docName, rowIndex) {
+  
+  useEffect(() => {
+    searchfilterTable();
+  }, [selectFilter]);
+  
+  function searchfilterTable() {
+    if(selectFilter) {
+      const filteredList = mockData
+      .filter((item) => item.portifolio_or_presignup.includes(selectFilter));
+      setBodyTableData(filteredList);
+    }
+  };
+  
+  async function handleRowClicked(rowIndex) {
     if (rowIndexClicked !== rowIndex) {
       setRowIndexClicked(rowIndex);
     } else {
@@ -76,12 +80,10 @@ export const TableData = ({ rowLimitPerPage, headData, bodyData }) => {
     alert("Exportar!");
   };
 
-  const renderHead = (item, index) => <th key={index}>{item}</th>;
-
   const toolbarOptions = [
     {
       text: "Ver Detalhes",
-      textColor: "orange",
+      textColor: colors.gray2, 
       click: function1,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
@@ -89,7 +91,7 @@ export const TableData = ({ rowLimitPerPage, headData, bodyData }) => {
     },
     {
       text: "Editar",
-      textColor: "brown",
+      textColor: colors.gray2,
       click: function2,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
@@ -97,32 +99,63 @@ export const TableData = ({ rowLimitPerPage, headData, bodyData }) => {
     },
     {
       text: "Aprovar",
-      textColor: "lightblue",
+      textColor: colors.cleanGreen,
       click: function3,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
       icon: <BsFillHandThumbsUpFill />,
     },
     {
-      text: "Exportar",
-      textColor: "red",
+      text: "Reprovar",
+      textColor: colors.alertRed,
       click: function4,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
-      icon: <AiOutlineExport />,
+      icon: <BsFillHandThumbsDownFill/>,
     },
   ];
+
+  const selectFilterData = (e) => {
+    setSelectFilter(e.target.value);
+  };
+  
+  const renderHead = (item, index) => <th key={index}>{item}</th>;
+  
+  const renderFilter = (value, index) => (
+    <td>
+      {value[0] !== "textInput" ?
+        <select key={index} onChange={selectFilterData}>
+          <option>Filtrar por..</option>
+          {value.map((item) => (
+            <option>{item}</option>
+          ))}
+        </select>
+      : 
+        <input type="text" placeholder="Filtrar por.." onChange={selectFilterData} />
+      }
+      <button>X</button>
+    </td>
+  );
 
   const renderBody = (value, index) => (
     <tr
       key={index}
-      onClick={() => handleRowClicked(value.documentName, index)}
+      onClick={() => handleRowClicked(index)}
       className={rowIndexClicked === index ? "selected-row" : null}
     >
-      <td>{value.documentName}</td>
-      <td>{value.documentType}</td>
-      <td>{value.timestamp}</td>
-      <td>{value.createdBy}</td>
+      <div>
+        <input type="checkbox" id="" value="" />
+      </div>
+      <td>{value.portifolio_or_presignup}</td>
+      <td>{value.cpfOrCnpj}</td>
+      <td>{value.typeOfPerson}</td>
+      <td>{value.agroindustry}</td>
+      <td>{value.product}</td>
+      <td>{value.guarantees}</td>
+      <td>{value.production}</td>
+      <td>{value.destination}</td>
+      <td>{value.modality}</td>
+      <td>{value.id_tax}</td>
     </tr>
   );
 
@@ -143,13 +176,53 @@ export const TableData = ({ rowLimitPerPage, headData, bodyData }) => {
           );
         })}
       </HeaderBtn>
-      <Table
-        limit={rowLimitPerPage}
-        headData={headData}
+      {/* <Table
+        limit="10"
+        headData={headerTableData}
         renderHead={(item, index) => renderHead(item, index)}
-        bodyData={bodyData}
+        bodyData={bodyTableData}
         renderBody={(value, index) => renderBody(value, index)}
-      />
+        filterData={filterFieldData}
+        renderFilter={(value, index) => renderFilter(value, index)}
+      /> */}
+      <TableContainer>
+        <table>
+          {headerTableData && renderHead && filterFieldData && renderFilter ? (
+            <thead>
+              <tr>
+                <input type="checkbox" id="" name="" value="" />
+                {
+                  headerTableData.map((item, index) => renderHead(item, index))
+                }
+              </tr>
+              <tr>
+                <button>limpar</button>
+                {
+                  filterFieldData.map((item, index) => renderFilter(item, index))
+                }
+              </tr>
+            </thead>
+          ) : null}
+
+          {bodyTableData && renderBody ? (
+            <tbody>
+              {
+                bodyTableData.map((item, index) => renderBody(item, index))
+              }
+            </tbody>
+          ) : null}
+        </table>
+      </TableContainer>
+        <Pagination 
+          limitOfPage={limit}
+          totalItems={bodyTableData.length}
+          offset={offset}
+          setOffset={setOffset}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          setDataShow={setDataShow}
+          bodyData={bodyTableData}
+        />
     </TableCard>
   );
 };
@@ -160,8 +233,9 @@ TableData.propTypes = {
   bodyData: PropTypes.array,
 };
 
-TableData.defaultProps = { 
-  rowLimitPerPage: 10,
-  headData: docTableHead,
-  bodyData: mockData
-};
+// TableDataFilter.defaultProps = {
+//   rowLimitPerPage: 10,
+//   headData: docTableHead,
+//   bodyData: mockData,
+//   filterData: filterFieldData,
+// };
