@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ColumnFilter = ({filterValue, setFilter }) => {
+const ColumnFilter = ({ filterValue, setFilter }) => {
   // const { filterValue, setFilter } = column;
   return (
     <span>

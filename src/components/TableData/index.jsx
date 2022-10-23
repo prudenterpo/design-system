@@ -249,7 +249,7 @@ export const TableData = () => {
                       </span>
                       <div>
                         {column.canFilter ? column.render(
-                          column.textField == true ? <ColumnFilter /> : <SelectFilter indexValue={index} list={rows}/>) 
+                          column.textField == true ? <ColumnFilter filterValue={column.filterValue} setFilter={column.setFilter}/> : <SelectFilter filterValue={column.filterValue} setFilter={column.setFilter} indexValue={index} list={rows}/>) 
                           : null}
                       </div>
                     </th>

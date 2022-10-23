@@ -79,6 +79,18 @@ export const filterFieldData = [
 export const mockData = [
   {
     portifolio_or_presignup: "Presignup",
+    cpf_or_cnpj: "67564565789",
+    type_of_person: "J",
+    agroindustry: "Vigor",
+    product: "Adequação",
+    guarantee: "Estoque",
+    production: "Leite",
+    destination: "Bem-estar animal",
+    modality: "Modalidade 1",
+    id_tax: "2342"
+  },
+  {
+    portifolio_or_presignup: "Portifólio",
     cpf_or_cnpj: "23434565789",
     type_of_person: "F",
     agroindustry: "Coopeavi",
@@ -88,6 +100,18 @@ export const mockData = [
     destination: "Finalidade 1",
     modality: "Modalidade 1",
     id_tax: "2342"
+  },
+  {
+    portifolio_or_presignup: "Portifólio",
+    cpf_or_cnpj: "03434565789",
+    type_of_person: "F",
+    agroindustry: "Bello",
+    product: "Custeio",
+    guarantee: "Tipo de garantia 3",
+    production: "Frango Griller",
+    destination: "Outros",
+    modality: "Compra de Aquecedor",
+    id_tax: "2dfd2"
   },
   {
     portifolio_or_presignup: "Portifólio",

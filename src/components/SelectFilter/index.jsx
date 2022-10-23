@@ -6,13 +6,20 @@ const SelectFilter = ({ filterValue, setFilter, indexValue, list }) => {
   // const indexValue = COLUMNS.findIndex((e) => e.accessor === "portifolio_or_presignup")
   // console.log(indexValue)
   const accessor = COLUMNS[indexValue].accessor
-  console.log(accessor)
-
   const columnListValue = []
+  const setList = new Set();
+  
   list.map((item, index) => {
     columnListValue.push(item.values[accessor])
   })
-  console.log(columnListValue)
+
+  columnListValue.forEach((value) => {
+    setList.add(value)
+  })
+  
+  console.log(accessor);
+  console.log(columnListValue);
+  console.log(setList);
   return (
     <span>
       <select
@@ -20,7 +27,7 @@ const SelectFilter = ({ filterValue, setFilter, indexValue, list }) => {
         onChange={e => setFilter(e.target.value)}
       >
         <option>Filtrar por..</option>
-          {columnListValue.map((item) => (
+          {Array.from(setList).map((item) => (
             <option>{item}</option>
         ))}
       </select> 
