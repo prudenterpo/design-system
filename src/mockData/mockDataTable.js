@@ -56,7 +56,7 @@ export const mockData = [
     type_of_person: "F",
     agroindustry: "Coopeavi",
     product: "Custeio",
-    guarantees: "Tipo de garantia 1",
+    guarantee: "Tipo de garantia 1",
     production: "Frango de corte",
     destination: "Finalidade 1",
     modality: "Modalidade 1",

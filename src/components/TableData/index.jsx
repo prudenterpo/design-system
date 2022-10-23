@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
-import { useTable } from 'react-table';
+import { useTable, useSortBy } from 'react-table';
 
 import { mockData, docTableHead, filterFieldData, COLUMNS } from "../../mockData/mockDataTable";
 
@@ -9,6 +9,8 @@ import  { HiOutlineDocumentSearch } from "react-icons/hi";
 import { BsFillHandThumbsDownFill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillHandThumbsUpFill } from "react-icons/bs";
+import {FaSortAlphaUpAlt } from "react-icons/fa";
+import { FaSortAlphaDown } from "react-icons/fa";
 
 //COMPONENTS
 import { Pagination } from '../Pagination';
@@ -47,7 +49,7 @@ export const TableData = () => {
     headerGroups, 
     rows, 
     prepareRow, 
-  } = useTable({ columns, data });
+  } = useTable({ columns, data }, useSortBy)
 
   useEffect(() => {
     searchfilterTable();
@@ -202,7 +204,12 @@ export const TableData = () => {
               {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map(column => (
-                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                      {column.render('Header')}
+                      <span>
+                        {column.isSorted ? (column.isSortedDesc ? <FaSortAlphaDown /> : <FaSortAlphaUpAlt />) : ''}
+                      </span>
+                    </th>
                   ))}
                 </tr>
               ))}
