@@ -43,38 +43,3 @@ export const TableContainer = styled.div`
   }
 `;
 
-// export const TablePagination = styled.div `
-//   display: flex;
-//   width: 100%;
-//   justify-content: flex-end;
-//   align-items: center;
-//   margin-top: 10px;
-// `;
-
-// export const PaginationItem = styled.div `
-//   margin-left: 10px;
-//   padding-top: 3px;
-//   width: 20px;
-//   height: 20px;
-//   font-size: 0.7rem;
-//   color: ${colors.gray2};
-//   border-radius: 50%;
-//   align-items: center;
-//   text-align: center;
-//   justify-content: center;
-//   cursor: pointer;
-//   &.active {
-//     background-color: ${colors.cleanGreen2};
-//     color: ${colors.white};
-//     font-weight: 600;
-//   }
-//   &.active:hover {
-//     background-color: ${colors.cleanGreen2};
-//     color: ${colors.white};
-//     font-weight: 600;
-//   }
-//   &:hover {
-//     color: #000;
-//     background-color: #f4f4f4;
-//   }
-// `;

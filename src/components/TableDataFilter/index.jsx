@@ -10,7 +10,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsFillHandThumbsUpFill } from "react-icons/bs";
 
 //COMPONENTS
-import { Table } from "../Table";
+import { Pagination } from '../Pagination';
 
 //STYLES
 import colors from '../../styles/colors';
@@ -31,6 +31,12 @@ export const TableDataFilter = () => {
   const [headerTableData, setHeaderTableData] = useState(docTableHead);
   const [bodyTableData, setBodyTableData] = useState(mockData);
 
+  const limit = 10;
+  const initDataShow = limit && bodyTableData ? bodyTableData.slice(0, Number(limit)) : bodyTableData;
+  const [dataShow, setDataShow] = useState(initDataShow);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [offset, setOffset] = useState(0);
+
   
   useEffect(() => {
     searchfilterTable();
@@ -39,7 +45,7 @@ export const TableDataFilter = () => {
   function searchfilterTable() {
     if(selectFilter) {
       const filteredList = mockData
-      .filter((item) => item.documentName.includes(selectFilter));
+      .filter((item) => item.portifolio_or_presignup.includes(selectFilter));
       setBodyTableData(filteredList);
     }
   };
@@ -117,12 +123,16 @@ export const TableDataFilter = () => {
   
   const renderFilter = (value, index) => (
     <td>
-      <select key={index} onChange={selectFilterData}>
-        <option>Filtrar por..</option>
-        {value.map((item) => (
-          <option>{item}</option>
-        ))}
-      </select>
+      {value[0] !== "textInput" ?
+        <select key={index} onChange={selectFilterData}>
+          <option>Filtrar por..</option>
+          {value.map((item) => (
+            <option>{item}</option>
+          ))}
+        </select>
+      : 
+        <input type="text" placeholder="Filtrar por.." onChange={selectFilterData} />
+      }
       <button>X</button>
     </td>
   );
@@ -133,11 +143,19 @@ export const TableDataFilter = () => {
       onClick={() => handleRowClicked(index)}
       className={rowIndexClicked === index ? "selected-row" : null}
     >
-      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-      <td>{value.documentName}</td>
-      <td>{value.documentType}</td>
-      <td>{value.timestamp}</td>
-      <td>{value.createdBy}</td>
+      <div>
+        <input type="checkbox" id="" value="" />
+      </div>
+      <td>{value.portifolio_or_presignup}</td>
+      <td>{value.cpfOrCnpj}</td>
+      <td>{value.typeOfPerson}</td>
+      <td>{value.agroindustry}</td>
+      <td>{value.product}</td>
+      <td>{value.guarantees}</td>
+      <td>{value.production}</td>
+      <td>{value.destination}</td>
+      <td>{value.modality}</td>
+      <td>{value.id_tax}</td>
     </tr>
   );
 
@@ -195,6 +213,16 @@ export const TableDataFilter = () => {
           ) : null}
         </table>
       </TableContainer>
+        <Pagination 
+          limitOfPage={limit}
+          totalItems={bodyTableData.length}
+          offset={offset}
+          setOffset={setOffset}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          setDataShow={setDataShow}
+          bodyData={bodyTableData}
+        />
     </TableCard>
   );
 };

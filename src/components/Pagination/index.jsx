@@ -5,7 +5,8 @@ import { TablePagination, ArrowsIcon, PaginationItem } from "./styles";
 
 const maxItems = 7;
 const maxItemsOnLeft = (maxItems - 1) / 2;
-const Pagination = ({
+
+export const Pagination = ({
   limitOfPage,
   totalItems,
   offset,
@@ -91,7 +92,6 @@ const Pagination = ({
 
 }
 
-export default Pagination;
 
 
 
