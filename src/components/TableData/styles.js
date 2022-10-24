@@ -20,7 +20,21 @@ export const TableContainer = styled.div`
     border-spacing: 0;
   }
   thead {
-    background-color: ${colors.gray5};
+    span {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 3px;
+    svg {
+      color: ${colors.darkestGreen};
+      font-size: 0.8rem;
+    }
+  }
+    tr:nth-child(1) {
+      height: 50px;
+      background-color: ${colors.gray5};
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 5px 0px,
+        rgba(0, 0, 0, 0.4) 0px 0px 1px 0px;
+    }
     tr:nth-child(2) {
       background-color: ${colors.white};
       box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 5px 0px,

@@ -14,10 +14,11 @@ export const InputFilterContainer = styled.div `
   padding: 10px;
   }
   svg {
+    background-color: ${colors.white};
     height: 20px;
     width: 20px;
     margin: 4px 0 0 -24px;
-    color: ${colors.gray2}; 
-   
+    color: ${colors.gray3}; 
+    z-index: 999;
   }
 `;
