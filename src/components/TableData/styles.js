@@ -20,11 +20,11 @@ export const TableContainer = styled.div`
     border-spacing: 0;
   }
   thead {
-    background-color: ${colors.gray6};
+    background-color: ${colors.gray5};
     tr:nth-child(2) {
       background-color: ${colors.white};
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
-        rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 5px 0px,
+        rgba(0, 0, 0, 0.4) 0px 0px 1px 0px;
     }
   }
   th,
@@ -79,7 +79,6 @@ export const HeaderBtn = styled.div `
     :hover {
       border-bottom: 1px solid ${colors.gray5} !important; 
       border-right: 1px solid ${colors.gray5} !important; 
-
     }
     :active {
       font-weight: 600;
@@ -88,7 +87,76 @@ export const HeaderBtn = styled.div `
 `;
 
 export const FilterHeaderContainer = styled.div `
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: ${colors.gray1};
+`;
 
+export const PaginationContainer = styled.div `
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 30px 5px 10px auto;  
+  div:nth-child(1) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 0.8rem;
+    margin: 0 10px 0 auto;
+    span {
+      margin: 0 5px 0 0;
+    }
+    input {
+      width: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 5px 5px 10px;
+      border-bottom: 1px solid ${colors.gray6} !important; 
+      border-right: 1px solid ${colors.gray6} !important; 
+      border-radius: 5px;
+    }
+  } 
+  div:nth-child(2) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 0.8rem;
+    margin: 0 10px 0 10px;
+    span {
+      margin: 0 5px 0 0;
+    }
+    select {
+      width: 60px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 5px 5px 10px;
+      border-bottom: 1px solid ${colors.gray6} !important; 
+      border-right: 1px solid ${colors.gray6} !important; 
+      border-radius: 5px;
+    }
+  } 
+  div:nth-child(3) {
+   
+    font-size: 0.8rem;
+    margin: 0 20px 0 10px;
+    span {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    button {
+      padding: 0 6px 0 6px;
+      :active {
+        opacity: 0.4;
+      }
+    }
+    svg {
+    color: ${colors.pureGreen};
+    font-size: 1.3rem;
+    display: inline-block;
+    vertical-align: middle;
+    }
+    
+  } 
 `;

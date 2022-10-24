@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 
+import { BsFillCaretRightFill, BsSkipBackwardFill, BsFillSkipForwardFill, BsFillCaretLeftFill } from "react-icons/bs";
+
 import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination } from 'react-table';
 
 import { mockData, docTableHead, COLUMNS } from "../../mockData/mockDataTable";
@@ -23,7 +25,8 @@ import {
   Title,
   HeaderBtn,
   TableCard,
-  FilterHeaderContainer
+  FilterHeaderContainer,
+  PaginationContainer
 } from "./styles";
 
 export const TableData = () => {
@@ -200,11 +203,12 @@ export const TableData = () => {
             })}
           </tbody>
         </table>
-        <div>
-          <span> Página{' '}<strong>{pageIndex + 1} de {pageOptions.length}</strong></span>
-          
-          <span>
-            Ir para página: {' '}          
+      </TableContainer>
+        <PaginationContainer>
+          <div>
+            <span>
+              Ir para página: {' '}          
+            </span>
             <input 
               type="number" defaultValue={pageIndex + 1}
               onChange={e => {
@@ -212,7 +216,7 @@ export const TableData = () => {
                 gotoPage(pageNumber)
               }}
             />
-          </span>
+          </div>
           <div>
             <span>Linhas por página: {' '}</span>
             <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
@@ -223,13 +227,14 @@ export const TableData = () => {
               ))}
             </select>
           </div>
-          
-          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button>
-          <button onClick={() => previousPage()} disabled={!canPreviousPage}>Anterior</button>
-          <button onClick={() => nextPage()} disabled={!canNextPage}>Próxima</button>
-          <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</button>
-        </div>
-      </TableContainer>
+          <div>
+            <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}><BsSkipBackwardFill /></button>
+            <button onClick={() => previousPage()} disabled={!canPreviousPage}><BsFillCaretLeftFill /></button>
+            <span>{pageIndex + 1} de {pageOptions.length}</span>
+            <button onClick={() => nextPage()} disabled={!canNextPage}><BsFillCaretRightFill /></button>
+            <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}> <BsFillSkipForwardFill /></button>
+          </div>
+        </PaginationContainer>
     </TableCard>
   );
 };
