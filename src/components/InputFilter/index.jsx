@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useAsyncDebounce } from 'react-table';
+import { BiSearchAlt } from 'react-icons/bi';
+import { InputFilterContainer } from './styles';
+
 
 const InputFilter = ({ filter, setFilter }) => {
   const [value, setValue] = useState(filter);
@@ -9,16 +12,18 @@ const InputFilter = ({ filter, setFilter }) => {
   }, 1000)
 
   return (
-    <span>
-      Pesquisar: {' '}
+    <InputFilterContainer>
       <input 
+        autoFocus
+        placeholder="Pesquisar.."
         value={value || ''}
         onChange={(e) => {
           setValue(e.target.value)
           onChange(e.target.value)
         }}
       />
-    </span>
+      <span><BiSearchAlt /></span>
+    </InputFilterContainer>
   )
 }
 

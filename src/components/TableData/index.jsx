@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 
 import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination } from 'react-table';
@@ -19,14 +19,16 @@ import SelectFilter from "../SelectFilter";
 //STYLES
 import colors from '../../styles/colors';
 import {
+  TableContainer,
+  Title,
   HeaderBtn,
   TableCard,
-  TableContainer
+  FilterHeaderContainer
 } from "./styles";
 
 export const TableData = () => {
   const [rowIndexClicked, setRowIndexClicked] = useState(null);
-  const [isEnableTableButton, setIsEnableTableButton] = useState(false);
+  const [isEnableTableButton, setIsEnableTableButton] = useState(true);
   const [selectFilter, setSelectFilter] = useState();
   const [headerTableData, setHeaderTableData] = useState(docTableHead);
   const [bodyTableData, setBodyTableData] = useState(mockData);
@@ -101,7 +103,7 @@ export const TableData = () => {
   const toolbarOptions = [
     {
       text: "Ver Detalhes",
-      textColor: colors.gray2, 
+      textColor: colors.gray1, 
       click: function1,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
@@ -109,7 +111,7 @@ export const TableData = () => {
     },
     {
       text: "Editar",
-      textColor: colors.gray2,
+      textColor: colors.gray1,
       click: function2,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
@@ -117,7 +119,7 @@ export const TableData = () => {
     },
     {
       text: "Aprovar",
-      textColor: colors.cleanGreen,
+      textColor: colors.pureGreen,
       click: function3,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
@@ -135,6 +137,7 @@ export const TableData = () => {
 
   return (
     <TableCard>
+        <Title>Título da tabela</Title>
       <HeaderBtn>
         {toolbarOptions.map((value, index) => {
           return (
@@ -149,24 +152,32 @@ export const TableData = () => {
             </button>
           );
         })}
+        <InputFilter filter={globalFilter} setFilter={setGlobalFilter} />
       </HeaderBtn>
       <TableContainer>
-        <InputFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <table {...getTableProps()}>
           <thead>
               {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column, index) => (
+                  {headerGroup.headers.map((column) => (
                     <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                       {column.render('Header')}
                       <span>
                         {column.isSorted ? (column.isSortedDesc ? <FaSortAlphaDown /> : <FaSortAlphaUpAlt />) : ''}
                       </span>
-                      <div>
+                    </th>
+                  ))}
+                </tr>
+              ))}
+              {headerGroups.map(headerGroup => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column, index) => (
+                    <th>
+                      <FilterHeaderContainer>
                         {column.canFilter ? column.render(
                           column.textField == true ? <ColumnFilter filterValue={column.filterValue} setFilter={column.setFilter}/> : <SelectFilter filterValue={column.filterValue} setFilter={column.setFilter} indexValue={index} list={rows}/>) 
                           : null}
-                      </div>
+                      </FilterHeaderContainer>
                     </th>
                   ))}
                 </tr>
