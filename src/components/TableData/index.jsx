@@ -240,7 +240,6 @@ export const TableData = () => {
 };
 
 TableData.propTypes = {
-  rowLimitPerPage: PropTypes.number,
   headData: PropTypes.array,
   bodyData: PropTypes.array,
 };
