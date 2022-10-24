@@ -17,9 +17,6 @@ const SelectFilter = ({ filterValue, setFilter, indexValue, list }) => {
     setList.add(value)
   })
   
-  console.log(accessor);
-  console.log(columnListValue);
-  console.log(setList);
   return (
     <span>
       <select

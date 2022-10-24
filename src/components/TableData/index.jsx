@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
-
+import { CSVLink } from "react-csv";
 import { BsFillCaretRightFill, BsSkipBackwardFill, BsFillSkipForwardFill, BsFillCaretLeftFill } from "react-icons/bs";
 
 import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination } from 'react-table';
@@ -13,6 +13,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsFillHandThumbsUpFill } from "react-icons/bs";
 import {FaSortAlphaUpAlt } from "react-icons/fa";
 import { FaSortAlphaDown } from "react-icons/fa";
+import { SiMicrosoftexcel } from "react-icons/si";
 
 //COMPONENTS
 import InputFilter from "../InputFilter";
@@ -41,6 +42,25 @@ export const TableData = () => {
   const [dataShow, setDataShow] = useState(initDataShow);
   const [currentPage, setCurrentPage] = useState(0);
   const [offset, setOffset] = useState(0);
+
+  const headersCSV = [
+    {label: 'Tipo de Consulta', key: 'portifolio_or_presignup'},
+    {label: 'CPF ou CNPJ', key: 'cpf_or_cnpj'},
+    {label: 'Tipo de Produtor', key: 'type_of_person'},
+    {label: 'Agroindústria', key: 'agroindustry'},
+    {label: 'Produto', key: 'product'},
+    {label: 'Garantia', key: 'guarantee'},
+    {label: 'Cultura', key: 'production'},
+    {label: 'Finalidade', key: 'destination'},
+    {label: 'Modalidade', key: 'modality'},
+    {label: 'id Controle Taxa', key: 'id_tax'},
+  ]
+
+  const csvReport = {
+    filename: 'Report.csv',
+    headers: headersCSV,
+    data: mockData
+  }
 
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => mockData, []);
@@ -91,16 +111,15 @@ export const TableData = () => {
     alert("Ver detalhes!");
   };
   const function2 = () => {
-    console.log("Editar");
-    alert("Editar!");
+    console.log("Exportar");
   };
   const function3 = () => {
     console.log("Aprovar");
     alert("Aprovar!");
   };
   const function4 = () => {
-    console.log("Exportar");
-    alert("Exportar!");
+    console.log("Reprovar");
+    alert("Reprovar!");
   };
 
   const toolbarOptions = [
@@ -113,7 +132,7 @@ export const TableData = () => {
       icon: <HiOutlineDocumentSearch />,
     },
     {
-      text: "Editar",
+      text: "Exportar",
       textColor: colors.gray1,
       click: function2,
       disabled: isEnableTableButton,
@@ -138,10 +157,13 @@ export const TableData = () => {
     },
   ];
 
+  console.log(globalFilter);
+
   return (
     <TableCard>
         <Title>Título da tabela</Title>
       <HeaderBtn>
+        <CSVLink {...csvReport}><SiMicrosoftexcel /></CSVLink>
         {toolbarOptions.map((value, index) => {
           return (
             <button

@@ -81,6 +81,25 @@ export const HeaderBtn = styled.div `
     opacity: 0; 
     cursor: default;
   }
+  a {
+    height: 10px;
+    margin: 8px 4px 4px 4px;
+    font-weight: 500;
+    border-bottom: 1px solid ${colors.gray6} !important; 
+    border-right: 1px solid ${colors.gray6} !important; 
+    border-radius: 5px;
+    padding: 1px;
+    font-size: 1.2rem;
+    color: ${colors.pureGreen};
+   
+    :hover {
+      border-bottom: 1px solid ${colors.gray5} !important; 
+      border-right: 1px solid ${colors.gray5} !important; 
+    }
+    :active {
+      font-weight: 600;
+    }
+  }
   button {
     font-size: 0.8rem;
     margin: 0 4px 10px 10px;
