@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination } from 'react-table';
 
-import { mockData, docTableHead, filterFieldData, COLUMNS } from "../../mockData/mockDataTable";
+import { mockData, docTableHead, COLUMNS } from "../../mockData/mockDataTable";
 
 import  { HiOutlineDocumentSearch } from "react-icons/hi";
 import { BsFillHandThumbsDownFill } from "react-icons/bs";
@@ -13,18 +13,13 @@ import {FaSortAlphaUpAlt } from "react-icons/fa";
 import { FaSortAlphaDown } from "react-icons/fa";
 
 //COMPONENTS
-import { Pagination } from '../Pagination';
 import InputFilter from "../InputFilter";
 import ColumnFilter from "../ColumnFilter";
 import SelectFilter from "../SelectFilter";
 //STYLES
 import colors from '../../styles/colors';
 import {
-  BtnContainer,
-  // PageContainer,
   HeaderBtn,
-  Title,
-  HeaderEditor,
   TableCard,
   TableContainer
 } from "./styles";
@@ -44,11 +39,6 @@ export const TableData = () => {
 
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => mockData, []);
-  // const defaultColumn = useMemo(() => {
-  //     return {
-  //         Filter: <SelectFilter  />
-  //     }
-  // }, [])
 
   const { 
     getTableProps, 
@@ -77,18 +67,6 @@ export const TableData = () => {
 
   const { globalFilter, pageIndex, pageSize } = state;
 
-  useEffect(() => {
-    searchfilterTable();
-  }, [selectFilter]);
-  
-  function searchfilterTable() {
-    if(selectFilter) {
-      const filteredList = mockData
-      .filter((item) => item.portifolio_or_presignup.includes(selectFilter));
-      setBodyTableData(filteredList);
-    }
-  };
-  
   async function handleRowClicked(rowIndex) {
     console.log(rowIndex);
     if (rowIndexClicked !== rowIndex) {
@@ -155,56 +133,6 @@ export const TableData = () => {
     },
   ];
 
-  // const selectFilterData = (e) => {
-  //   setSelectFilter(e.target.value);
-  // };
-  
-  // const renderHead = (item, index) => <th key={index}>{item}</th>;
-  
-  // const renderFilter = (value, index) => (
-  //   <td>
-  //     {value[0] !== "textInput" ?
-  //       <select key={index} onChange={selectFilterData}>
-  //         <option>Filtrar por..</option>
-  //         {value.map((item) => (
-  //           <option>{item}</option>
-  //         ))}
-  //       </select>
-  //     : 
-  //       <input type="text" placeholder="Filtrar por.." onChange={selectFilterData} />
-  //     }
-  //     <button>X</button>
-  //   </td>
-  // );
-
-  // const renderBody = (value, index) => (
-  //   <tr
-  //     key={index}
-  //     onClick={() => handleRowClicked(index)}
-  //     className={rowIndexClicked === index ? "selected-row" : null}
-  //   >
-  //     <div>
-  //       <input type="checkbox" id="" value="" />
-  //     </div>
-  //     <td>{value.portifolio_or_presignup}</td>
-  //     <td>{value.cpfOrCnpj}</td>
-  //     <td>{value.typeOfPerson}</td>
-  //     <td>{value.agroindustry}</td>
-  //     <td>{value.product}</td>
-  //     <td>{value.guarantees}</td>
-  //     <td>{value.production}</td>
-  //     <td>{value.destination}</td>
-  //     <td>{value.modality}</td>
-  //     <td>{value.id_tax}</td>
-  //   </tr>
-  // );
-
-  console.log("headerGroups => ", headerGroups)
-  console.log("globalFilter =>", globalFilter)
-  console.log("columns => ", columns)
-  console.log("state => ", state)
-  console.log("rows => ", rows)
-
   return (
     <TableCard>
       <HeaderBtn>
@@ -222,15 +150,6 @@ export const TableData = () => {
           );
         })}
       </HeaderBtn>
-      {/* <Table
-        limit="10"
-        headData={headerTableData}
-        renderHead={(item, index) => renderHead(item, index)}
-        bodyData={bodyTableData}
-        renderBody={(value, index) => renderBody(value, index)}
-        filterData={filterFieldData}
-        renderFilter={(value, index) => renderFilter(value, index)}
-      /> */}
       <TableContainer>
         <InputFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <table {...getTableProps()}>
@@ -299,43 +218,7 @@ export const TableData = () => {
           <button onClick={() => nextPage()} disabled={!canNextPage}>Próxima</button>
           <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</button>
         </div>
-        {/* <table>
-          {headerTableData && renderHead && filterFieldData && renderFilter ? (
-            <thead>
-              <tr>
-                <input type="checkbox" id="" name="" value="" />
-                {
-                  headerTableData.map((item, index) => renderHead(item, index))
-                }
-              </tr>
-              <tr>
-                <button>limpar</button>
-                {
-                  filterFieldData.map((item, index) => renderFilter(item, index))
-                }
-              </tr>
-            </thead>
-          ) : null}
-
-          {bodyTableData && renderBody ? (
-            <tbody>
-              {
-                bodyTableData.map((item, index) => renderBody(item, index))
-              }
-            </tbody>
-          ) : null}
-        </table> */}
       </TableContainer>
-        {/* <Pagination 
-          limitOfPage={limit}
-          totalItems={bodyTableData.length}
-          offset={offset}
-          setOffset={setOffset}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          setDataShow={setDataShow}
-          bodyData={bodyTableData}
-        /> */}
     </TableCard>
   );
 };
