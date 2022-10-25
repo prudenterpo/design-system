@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import { CSVLink } from "react-csv";
 import { BsFillCaretRightFill, BsSkipBackwardFill, BsFillSkipForwardFill, BsFillCaretLeftFill } from "react-icons/bs";
@@ -33,34 +33,19 @@ import {
 export const TableData = () => {
   const [rowIndexClicked, setRowIndexClicked] = useState(null);
   const [isEnableTableButton, setIsEnableTableButton] = useState(true);
-  const [selectFilter, setSelectFilter] = useState();
+  const [filteredData, setFilteredData] = useState([]);
   const [headerTableData, setHeaderTableData] = useState(docTableHead);
   const [bodyTableData, setBodyTableData] = useState(mockData);
 
-  const limit = 10;
-  const initDataShow = limit && bodyTableData ? bodyTableData.slice(0, Number(limit)) : bodyTableData;
-  const [dataShow, setDataShow] = useState(initDataShow);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [offset, setOffset] = useState(0);
+  // const limit = 10;
+  // const initDataShow = limit && bodyTableData ? bodyTableData.slice(0, Number(limit)) : bodyTableData;
+  // // const [dataShow, setDataShow] = useState(initDataShow);
+  // const [currentPage, setCurrentPage] = useState(0);
+  // const [offset, setOffset] = useState(0);
 
-  const headersCSV = [
-    {label: 'Tipo de Consulta', key: 'portifolio_or_presignup'},
-    {label: 'CPF ou CNPJ', key: 'cpf_or_cnpj'},
-    {label: 'Tipo de Produtor', key: 'type_of_person'},
-    {label: 'Agroindústria', key: 'agroindustry'},
-    {label: 'Produto', key: 'product'},
-    {label: 'Garantia', key: 'guarantee'},
-    {label: 'Cultura', key: 'production'},
-    {label: 'Finalidade', key: 'destination'},
-    {label: 'Modalidade', key: 'modality'},
-    {label: 'id Controle Taxa', key: 'id_tax'},
-  ]
-
-  const csvReport = {
-    filename: 'Report.csv',
-    headers: headersCSV,
-    data: mockData
-  }
+  // useEffect(() => {
+  //  test
+  // }, [rows]);
 
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => mockData, []);
@@ -91,6 +76,38 @@ export const TableData = () => {
   )
 
   const { globalFilter, pageIndex, pageSize } = state;
+
+  const headersCSV = [
+    {label: 'Tipo de Consulta', key: 'portifolio_or_presignup'},
+    {label: 'CPF ou CNPJ', key: 'cpf_or_cnpj'},
+    {label: 'Tipo de Produtor', key: 'type_of_person'},
+    {label: 'Agroindústria', key: 'agroindustry'},
+    {label: 'Produto', key: 'product'},
+    {label: 'Garantia', key: 'guarantee'},
+    {label: 'Cultura', key: 'production'},
+    {label: 'Finalidade', key: 'destination'},
+    {label: 'Modalidade', key: 'modality'},
+    {label: 'id Controle Taxa', key: 'id_tax'},
+  ]
+
+  const csvReport = {
+    filename: 'Report.csv',
+    headers: headersCSV,
+    data: filteredData 
+  }
+
+  console.log("rows =>", rows);
+  console.log(csvReport.data)
+
+
+  const filterValue = [];
+  
+  const test = () => {
+    rows.map((row) => (
+      filterValue.push(row.values)
+    ))
+    setFilteredData(filterValue)
+  }
 
   async function handleRowClicked(rowIndex) {
     console.log(rowIndex);
@@ -153,17 +170,15 @@ export const TableData = () => {
       click: function4,
       disabled: isEnableTableButton,
       className: isEnableTableButton ? "" : "show-btn",
-      icon: <BsFillHandThumbsDownFill/>,
+      icon: <BsFillHandThumbsDownFill />,
     },
   ];
-
-  console.log(globalFilter);
 
   return (
     <TableCard>
         <Title>Título da tabela</Title>
       <HeaderBtn>
-        <CSVLink {...csvReport}><SiMicrosoftexcel /></CSVLink>
+        <CSVLink onClick={() => test()} {...csvReport}><SiMicrosoftexcel /></CSVLink>
         {toolbarOptions.map((value, index) => {
           return (
             <button
