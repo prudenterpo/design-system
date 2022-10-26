@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { CSVLink } from "react-csv";
-import { BsFillCaretRightFill, BsSkipBackwardFill, BsFillSkipForwardFill, BsFillCaretLeftFill } from "react-icons/bs";
-
-import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination } from 'react-table';
-
-import { mockData, docTableHead, COLUMNS } from "../../mockData/mockDataTable";
-
+import { 
+  useTable, 
+  useSortBy, 
+  useGlobalFilter, 
+  useFilters, 
+  usePagination 
+} from 'react-table';
+//DATA
+import { mockData, COLUMNS, headersCSV } from "../../mockData/mockDataTable";
+//ICONS
 import  { HiOutlineDocumentSearch } from "react-icons/hi";
 import { BsFillHandThumbsDownFill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
@@ -14,6 +18,12 @@ import { BsFillHandThumbsUpFill } from "react-icons/bs";
 import {FaSortAlphaUpAlt } from "react-icons/fa";
 import { FaSortAlphaDown } from "react-icons/fa";
 import { SiMicrosoftexcel } from "react-icons/si";
+import { 
+  BsFillCaretRightFill, 
+  BsSkipBackwardFill, 
+  BsFillSkipForwardFill, 
+  BsFillCaretLeftFill 
+} from "react-icons/bs";
 
 //COMPONENTS
 import InputFilter from "../InputFilter";
@@ -34,22 +44,10 @@ export const TableData = () => {
   const [rowIndexClicked, setRowIndexClicked] = useState(null);
   const [isEnableTableButton, setIsEnableTableButton] = useState(true);
   const [filteredData, setFilteredData] = useState([]);
-  const [headerTableData, setHeaderTableData] = useState(docTableHead);
-  const [bodyTableData, setBodyTableData] = useState(mockData);
-
-  // const limit = 10;
-  // const initDataShow = limit && bodyTableData ? bodyTableData.slice(0, Number(limit)) : bodyTableData;
-  // // const [dataShow, setDataShow] = useState(initDataShow);
-  // const [currentPage, setCurrentPage] = useState(0);
-  // const [offset, setOffset] = useState(0);
-
-  // useEffect(() => {
-  //  test
-  // }, [rows]);
-
+  const [rowClickedValues, setRowClickedValues] = useState([]);
+  
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => mockData, []);
-
   const { 
     getTableProps, 
     getTableBodyProps, 
@@ -74,21 +72,7 @@ export const TableData = () => {
     useSortBy,
     usePagination
   )
-
   const { globalFilter, pageIndex, pageSize } = state;
-
-  const headersCSV = [
-    {label: 'Tipo de Consulta', key: 'portifolio_or_presignup'},
-    {label: 'CPF ou CNPJ', key: 'cpf_or_cnpj'},
-    {label: 'Tipo de Produtor', key: 'type_of_person'},
-    {label: 'Agroindústria', key: 'agroindustry'},
-    {label: 'Produto', key: 'product'},
-    {label: 'Garantia', key: 'guarantee'},
-    {label: 'Cultura', key: 'production'},
-    {label: 'Finalidade', key: 'destination'},
-    {label: 'Modalidade', key: 'modality'},
-    {label: 'id Controle Taxa', key: 'id_tax'},
-  ]
 
   const csvReport = {
     filename: 'Report.csv',
@@ -96,13 +80,8 @@ export const TableData = () => {
     data: filteredData 
   }
 
-  console.log("rows =>", rows);
-  console.log(csvReport.data)
-
-
   const filterValue = [];
-  
-  const test = () => {
+    const test = () => {
     rows.map((row) => (
       filterValue.push(row.values)
     ))
@@ -110,25 +89,23 @@ export const TableData = () => {
   }
 
   async function handleRowClicked(rowIndex) {
-    console.log(rowIndex);
+    const rowData = rows[rowIndex].values;
     if (rowIndexClicked !== rowIndex) {
       setRowIndexClicked(rowIndex);
     } else {
       setRowIndexClicked(null);
     }
-    if (rowIndexClicked === null || rowIndexClicked !== rowIndex) {
-      setIsEnableTableButton(true);
-    } else {
-      setIsEnableTableButton(false);
-    }
+    setRowClickedValues(rowData);
   }
+  console.log(rowClickedValues)
 
   const function1 = () => {
     console.log("Ver detalhes");
-    alert("Ver detalhes!");
+    alert(JSON.stringify(rowClickedValues));
   };
   const function2 = () => {
     console.log("Exportar");
+    alert("Exportar!");
   };
   const function3 = () => {
     console.log("Aprovar");

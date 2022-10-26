@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Design System AgroForte" />
+
+# Bem-vindo ao Design System AgroForte!
+
+## O que é Design System?
+
+É um conjunto de orientações que funcionam como uma base de trabalho comum
+entre a equipe UX e a equipe Frontend (Acordo entre partes).
+Se fizermos um comparativo com o momento atual da equipe de Tecnologia,
+poderíamos dizer que este conjunto de orientações se equipara com a
+documentação de endpoints que fazemos no início de cada Sprint. Tal se trata de
+um acordo entre as equipes de Backend e Frontend para construção e integração
+dos recursos que irão compor uma nova feature.
+Não existe uma estrutura fixa para a construção de um Design System, este vai variar
+conforme a perspectiva de cada equipe. O objetivo final é definir de forma evolutiva
+todos os elementos, componentes e páginas essenciais à construção da User
+Experience (UX) e User Interface (UI) de um produto.
+
+## Estruturação Design System Agroforte
+A estrutura proposta é composta por três setores independentes e 5 fases.
+Setores
+Responsáveis pela criação de protótipos de novos componentes de UI:
+Designers são responsáveis por este setor, pessoal de Mkt e até stackholders
+poderão estar envolvidos em validações de trabalhos entregues.
+Responsáveis pelo desenvolvimento de componentes e atualização da
+documentação: Composto por desenvolvedores frontend responsáveis pelo
+recebimento do design handoff, implementação e atualização da documentação
+web.
+Responsáveis pelo desenvolvimento de produtos: Composto por
+desenvolvedores frontend responsáveis em desenvolver novos projetos e/ou novas
+features para produção. O desenvolvimento desta equipe será limitada a utilizar
+apenas componentes, grid system, utilitários fornecidos no DS Agroforte.
+
+## Como utilizar?
+
+#### Flutter
+```sh
+yarn storybook
+```
+## Considerações:
+
+Este fluxo considera apenas a visão e competência do time de tecnologia, iniciando
+à partir da entrega de um protótipo validado (handoff). Contudo, muitas outras
+etapas serão realizadas pelo time de marketing, design, produtos, etc;
+A ideia de conceituar de forma faseada permite que façamos uma análise do
+cenário atual, permitindo implementações parcimônias, seguindo sempre a
+necessidade atual. A adoção de pacotes privados irá gerar uma necessidade de
+gerenciamento de versões e compatibilidade, o que pode gerar uma complexidade
+desnecessária caso seja implementado sem a real necessidade;
+Será um produto Agroforte, onde todos possam colaborar de alguma forma.
