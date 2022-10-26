@@ -1,8 +1,13 @@
 export const COLUMNS = [
   { 
+    Header: "Tipo ", 
+    accessor: "type",
+    disableFilters: true,
+    minWidth: 60,
+  },
+  { 
     Header: "Tipo de consulta", 
     accessor: "portifolio_or_presignup",
-    
   },
   { 
     Header: "CPF ou CNPJ", 
@@ -12,17 +17,15 @@ export const COLUMNS = [
   { 
     Header: "Tipo de produtor", 
     accessor: "type_of_person",
-    
   },
   { 
     Header: "Agroindústria", 
     accessor: "agroindustry",
-    
+    minWidth: 170
   },
   { 
     Header: "Produto", 
-    accessor: "product",
-    
+    accessor: "product",  
   },
   { 
     Header: "Garantia", 
@@ -32,20 +35,20 @@ export const COLUMNS = [
   { 
     Header: "Cultura", 
     accessor: "production",
-      },
+  },
   { 
     Header: "Finalidade", 
     accessor: "destination",
-      },
+  },
   { 
     Header: "Modalidade", 
     accessor: "modality",
-      },
+  },
   { 
     Header: "Id_controle_taxa", 
     accessor: "id_tax",
     textField: true
-      }
+  }
 ];
 
 export const filterFieldData = [ 

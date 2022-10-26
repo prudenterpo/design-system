@@ -6,7 +6,7 @@ import {
   useSortBy, 
   useGlobalFilter, 
   useFilters, 
-  usePagination 
+  usePagination
 } from 'react-table';
 //DATA
 import { mockData, COLUMNS, headersCSV } from "../../mockData/mockDataTable";
@@ -48,6 +48,12 @@ export const TableData = () => {
   
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => mockData, []);
+  const defaultColumn = useMemo(() => ({
+    width: 150,
+    minWidth: 150,
+    maxWidth: 250
+  }))
+
   const { 
     getTableProps, 
     getTableBodyProps, 
@@ -66,11 +72,15 @@ export const TableData = () => {
     state,
     setGlobalFilter, 
   } = useTable(
-    { columns, data, initialState: { pageIndex: 0 }},
+    { columns, 
+      data, 
+      initialState: { pageIndex: 0 },
+      defaultColumn
+    },
     useFilters, 
     useGlobalFilter, 
     useSortBy,
-    usePagination
+    usePagination,
   )
   const { globalFilter, pageIndex, pageSize } = state;
 
@@ -177,7 +187,7 @@ export const TableData = () => {
               {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                    <th {...column.getHeaderProps({ style: { minWidth: column.minWidth, width: column.width }}, column.getSortByToggleProps())}>
                       {column.render('Header')}
                       <span>
                         {column.isSorted ? (column.isSortedDesc ? <FaSortAlphaDown /> : <FaSortAlphaUpAlt />) : ''}
@@ -189,7 +199,7 @@ export const TableData = () => {
               {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column, index) => (
-                    <th>
+                    <th {...column.getHeaderProps({ style: { minWidth: column.minWidth, width: column.width }})}>
                       <FilterHeaderContainer>
                         {column.canFilter ? column.render(
                           column.textField == true ? <ColumnFilter filterValue={column.filterValue} setFilter={column.setFilter}/> : <SelectFilter filterValue={column.filterValue} setFilter={column.setFilter} indexValue={index} list={rows}/>) 
@@ -207,13 +217,17 @@ export const TableData = () => {
                 <tr 
                   onClick={() => handleRowClicked(index)}  
                   className={rowIndexClicked === index ? "selected-row" : null} 
-                  {...row.getRowProps()}
+                  {...row.getRowProps({ style: { minWidth: row.minWidth, width: row.width }})}
                 >
                   {row.cells.map((cell) => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  return (
+                    <td {...cell.getCellProps({ style: { minWidth: cell.column.minWidth, width: cell.column.width }})}>
+                      {cell.render('Cell')}
+                    </td>
+                  );
                   })}
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
